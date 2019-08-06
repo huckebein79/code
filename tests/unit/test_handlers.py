@@ -1,3 +1,4 @@
+#pylint: disable=no-self-use
 from unittest import mock
 import pytest
 
@@ -58,10 +59,10 @@ class TestAllocate:
         messagebus.handle(
             events.BatchCreated("b1", "COMPLICATED-LAMP", 100, None), uow
         )
-        result = messagebus.handle(
+        results = messagebus.handle(
             events.AllocationRequired("o1", "COMPLICATED-LAMP", 10), uow
         )
-        assert result == "b1"
+        assert results.pop(0) == "b1"
 
 
     def test_errors_for_invalid_sku(self):
